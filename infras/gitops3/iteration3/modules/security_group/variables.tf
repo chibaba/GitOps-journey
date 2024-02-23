@@ -22,5 +22,22 @@ variable "type" {
 }
 
 variable "from-port" {
-    
+    description = "allowing traffic to port"
+    type =  number
+}
+
+variable "to_port" {
+  description = "Allowing Traffic To Port"
+  type        = number
+}
+
+variable "protocol" {
+    description = "Protocol TCP/ICMP/UDP"
+    type = string
+    default = "TCP"
+}
+
+variable "cidr_blocks" {
+  description = "CIDR Blocks to allow traffic to in case of egress/from in case of ingress"
+  type        = list(string)
 }
