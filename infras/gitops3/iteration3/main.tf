@@ -32,3 +32,16 @@ module "http_sg_ingress" {
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
 }
+
+# Generic egress security group module
+module "generic_sg_egress" {
+    source = "./modules/security_group"
+    sg_name = "generic_sg_egress"
+    sg_desription = "allow server to connect to the outbound internet"
+    environment = var.environment
+    type = "egress"
+    from_port = 0
+    to_port = 65535
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+}
