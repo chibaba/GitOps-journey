@@ -21,3 +21,12 @@ data "aws_ami" "ubuntu" {
 }
 
 # HTTP ingress security module
+module "http_sg_ingress" {
+    source = "./modules/security_group"
+    sg_name = "http_sg_ingress"
+    sg_desription = "allow Port 80 from anywhere"
+    environment = var.environment
+    type = "ingress"
+    from_port = 80
+    to_port = 80
+}

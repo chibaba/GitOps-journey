@@ -21,7 +21,7 @@ variable "type" {
   
 }
 
-variable "from-port" {
+variable "from_port" {
     description = "allowing traffic to port"
     type =  number
 }
