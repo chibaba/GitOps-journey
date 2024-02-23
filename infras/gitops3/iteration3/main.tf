@@ -45,3 +45,16 @@ module "generic_sg_egress" {
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
 }
+
+# ssh ingress security group module
+module "ssh_sg_ingress" {
+    source = "./modules/security_group"
+    sg_name = "ssh_sg_ingress"
+    sg_desription = "Allow port 22 from anywhere"
+    environment = var.environment
+    type = ingress
+    from_port = 22
+    to_port = 22
+    protocol = tcp
+    cidr_blocks = ["0.0.0.0/0"]
+}
