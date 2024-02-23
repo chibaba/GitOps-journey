@@ -10,8 +10,8 @@ variable "sg_desription" {
 }
 
 variable "environment" {
-    description = "environment is to be installed"
-    type = string
+  description = "Environment to be installed"
+  type        = string
 }
 
 variable "type" {
