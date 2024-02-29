@@ -45,3 +45,35 @@ module "generic_sg_egress" {
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
 }
+
+# ssh ingress security group module
+module "ssh_sg_ingress" {
+    source = "./modules/security_group"
+    sg_name = "ssh_sg_ingress"
+    sg_desription = "Allow port 22 from anywhere"
+    environment = var.environment
+    type = ingress
+    from_port = 22
+    to_port = 22
+    protocol = tcp
+    cidr_blocks = ["0.0.0.0/0"]
+}
+
+# AWS EC2 Resource creation
+
+resource "aws_instance" "apache2_server" {
+    ami = data.aws_ami.ubuntu.id
+    instance_type = var.instance_type
+    vpc_security_group_ids = [module.http_sg_ingress.sg_id,
+     module.generic_sg_egress.sg_id,module.ssh_sg_ingress.sg_id]
+    key_name = var.ssh_key_name
+    user_data = file("scripts/user_data.sh") 
+    tags = {
+        env = var.environment
+        name = "ec2-${local.name-suffix}"
+    }
+    depends_on = [ 
+        module.generic_sg_egress
+     ]
+  
+}
